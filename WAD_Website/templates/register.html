@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/css/register.css">
+    <meta charset="UTF-8">
+    <title>register</title>
+</head>
+<body>
+    <b><h1 align="center">Register an account</h1></b>
+    <div style="text-align: center;">
+        <form class="form" method="POST">
+        <a href="http://127.0.0.1:5000/" class="homepage-button"></a>
+            <label>E-mail:</label>
+            <input type="text" name="username"><br>
+            <label>password:</label>
+            <input type="password" name="password"><br>
+            <label>Confirm:</label>
+            <input type="password" name="password2"><br>
+            <br>
+            <input type="submit" value="register"><br>
+            {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+        </form>
+    </div>
+</body>
+</html>

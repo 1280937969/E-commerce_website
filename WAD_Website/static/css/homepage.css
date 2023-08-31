@@ -1,0 +1,59 @@
+.gray {
+    background-color: #808080;
+    color: #fff;
+    border: 2px solid #0d0101c5;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 0 10px;
+  }
+.white {
+    background-color: #ffffff;
+    color: #000000;
+    border: 2px solid #0d0101c5;
+    border-radius: 4px;
+    padding: 10px 20px;
+    margin: 0 10px;
+  }
+.simple-grid {
+    display: flex;
+    justify-content: space-between;
+}
+.simple-grid__cell--1\/4 {
+    border:4px solid #0d0101c5;
+    padding: 10px;
+    margin: 20px 30px 20px 20px;
+}
+.img-container {
+    position: relative;
+}
+.on-sale {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: #5a5858;
+    color: white;
+    padding: 5px 10px;
+    font-size: 14px;
+    border-radius: 5px;
+}
+header {
+    background-color: gray;
+    padding: 10px;
+    overflow: auto;
+        }
+header a {
+    float: right;
+    text-decoration: underline;
+    color: white;
+    margin-left: 10px;
+        }
+header button {
+    float: left;
+    background: white;
+    border: none;
+    padding: 10px 20px;
+        }
+button img {
+    width: 20px;
+    height: 20px;
+}

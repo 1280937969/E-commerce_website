@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="../static/css/homepage.css">
+    <link rel="stylesheet" href="../static/css/goodsBrowsingInterface.css">
+	<title>E-commerce website homepage</title>
+    <header>
+        {% if user %}
+            <div style="overflow: auto;">
+                <span>Hello ! {{ user.name }}</span>
+                <a href="http://127.0.0.1:5000/logout">Log out</a>
+                <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">Personal Center</a>
+                <a href="{{ url_for('message', id=user.user_id) }}" style="float: right;">Message Center</a>
+            </div>
+        {% else %}
+            <a href="http://127.0.0.1:5000/login">Log in</a>
+            <a href="http://127.0.0.1:5000/register">Register</a>
+        {% endif %}
+    </header>
+</head>
+<body>
+
+	<main>
+        <h1 align="center">Shopping Mall</h1>
+		<h2 align="center">Welcome to the online shopping center！</h2>
+        <p align="center">Our goal is to become your most trusted and beloved e-commerce website.</p>
+			<div style="text-align: center;">
+				<a href="http://127.0.0.1:5000/goodsBrowsingInterface" class="gray">Product Browsing</a>
+                {% if user %}
+				<a href="{{ url_for('publicItem', id=user.user_id) }}" class="white">Publish Product</a>
+                {% else %}
+                    <a href="http://127.0.0.1:5000/login" class="white">Publish Product</a>
+                {% endif %}
+			  </div>
+	</main>
+	<br>
+	<hr>
+<!-- Row -->
+<div style="overflow: auto;">
+	<h4 style="float: left;">YOU MAY LIKE IT:</h4>
+	<a href="http://127.0.0.1:5000/goodsBrowsingInterface" class="white" style="float: right;">View more products</a>
+</div>
+<div class="simple-grid">
+    {% for item in items[-4:] %}
+    <div class="simple-grid__cell--1/4">
+        <div class="img-container">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+            <img src="{{ item.photo }}" alt="{{ item.item_name }}">
+            </a>
+            <div class="on-sale">New</div>
+            {% if item.discount_limit != 1 %}
+            <div class="on-sale">On Sale</div>
+            {% endif %}
+
+        </div>
+        <h2>{{ item.item_name }}</h2>
+        {% if item.discount_limit != 1 %}
+        <p>original price:<del>{{ item.price }}</del></p>
+        {% endif %}
+        <p>Price: {{ item.price * item.discount_limit }}</p>
+    </div>
+    {% endfor %}
+</div>
+</body>
+</html>

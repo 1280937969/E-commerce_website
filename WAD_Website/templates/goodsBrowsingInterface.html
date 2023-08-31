@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GOODSBROWSINGINTERFACE</title>
+    <link rel="stylesheet" href="../static/css/goodsBrowsingInterface.css">
+      <link rel="stylesheet" href="../static/css/homepage.css">
+    <header>
+        <button onclick="window.location.href='http://127.0.0.1:5000/' ">
+            <img src="/static/picture/homepageButton.jpg" alt="Home" />
+        </button>
+        {% if user %}
+            <div style="overflow: auto;">
+                <span>Hello ! {{ user.name }}</span>
+                <a href="http://127.0.0.1:5000/logout">Log out</a>
+                <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">Personal Center</a>
+            </div>
+        {% else %}
+            <a href="http://127.0.0.1:5000/login">Log in</a>
+            <a href="http://127.0.0.1:5000/register">Register</a>
+        {% endif %}
+    </header>
+</head>
+  </head>
+  <body>
+
+    <hr>
+    <h1>CATEGORY</h1>
+    <div class="category" onclick="showProduct('category1')">
+      <img src="../static/picture/cosmetics.jpg">
+      <p align="center">cosmetics</p>
+    </div>
+    <div class="category" onclick="showProduct('category2')">
+      <img src="../static/picture/digital product.jpg">
+      <p align="center">digital product</p>
+    </div>
+    <div class="category" onclick="showProduct('category3')">
+      <img src="../static/picture/menswear.jpg">
+      <p align="center">menswear</p>
+    </div>
+    <div class="category" onclick="showProduct('category4')">
+        <img src="../static/picture/women's wear.jpg">
+        <p align="center">women's clothing</p>
+      </div>
+      <div class="category" onclick="showProduct('category5')">
+        <img src="../static/picture/snack.jpg">
+        <p align="center">snack</p>
+      </div>
+      <div class="category" onclick="showProduct('category6')">
+        <img src="../static/picture/toy.jpg">
+        <p align="center">toy</p>
+      </div>
+      <hr>
+
+    <div class="product-info" id="category1">
+    {% for item in items_category1 %}
+        <div class="product">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+                <img src="{{ item.photo }}" alt="product">
+            </a>
+            <p>{{ item.item_name }}</p>
+            {% if item.discount_limit!=1 %}
+            <p>Discounted price:{{ item.price * item.discount_limit }}</p>
+                <p>Discount deadline:{{ item.duration }}</p>
+                {% else %}
+                <p>Price:{{ item.price}}</p>
+        {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="product-info" id="category2">
+      {% for item in items_category5 %}
+        <div class="product">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+                <img src="{{ item.photo }}" alt="product">
+            </a>
+            <p>{{ item.item_name }}</p>
+            {% if item.discount_limit!=1 %}
+            <p>Discounted price:{{ item.price * item.discount_limit }}</p>
+                <p>Discount deadline:{{ item.duration }}</p>
+                {% else %}
+                <p>Price:{{ item.price}}</p>
+        {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="product-info" id="category3">
+    {% for item in items_category2 %}
+        <div class="product">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+                <img src="{{ item.photo }}" alt="product">
+            </a>
+            <p>{{ item.item_name }}</p>
+            {% if item.discount_limit!=1 %}
+            <p>Discounted price:{{ item.price * item.discount_limit }}</p>
+                <p>Discount deadline:{{ item.duration }}</p>
+                {% else %}
+                <p>Price:{{ item.price}}</p>
+        {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+    <div class="product-info" id="category4">
+        {% for item in items_category3 %}
+        <div class="product">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+                <img src="{{ item.photo }}" alt="product">
+            </a>
+            <p>{{ item.item_name }}</p>
+            {% if item.discount_limit!=1 %}
+            <p>Discounted price:{{ item.price * item.discount_limit }}</p>
+                <p>Discount deadline:{{ item.duration }}</p>
+                {% else %}
+                <p>Price:{{ item.price}}</p>
+        {% endif %}
+        </div>
+    {% endfor %}
+      </div>
+
+      <div class="product-info" id="category5">
+        {% for item in items_category6 %}
+        <div class="product">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+                <img src="{{ item.photo }}" alt="product">
+            </a>
+            <p>{{ item.item_name }}</p>
+            {% if item.discount_limit!=1 %}
+            <p>Discounted price:{{ item.price * item.discount_limit }}</p>
+                <p>Discount deadline:{{ item.duration }}</p>
+                {% else %}
+                <p>Price:{{ item.price}}</p>
+        {% endif %}
+        </div>
+    {% endfor %}
+      </div>
+
+      <div class="product-info" id="category6">
+        {% for item in items_category4 %}
+        <div class="product">
+            <a href="{{ url_for('goodsInterface', id=item.item_id) }}" class="product-link">
+                <img src="{{ item.photo }}" alt="product">
+            </a>
+            <p>{{ item.item_name }}</p>
+            {% if item.discount_limit!=1 %}
+            <p>Discounted price:{{ item.price * item.discount_limit }}</p>
+                <p>Discount deadline:{{ item.duration }}</p>
+                {% else %}
+                <p>Price:{{ item.price}}</p>
+        {% endif %}
+        </div>
+    {% endfor %}
+      </div>
+    
+    <script>
+      function showProduct(categoryId) {
+        // 隐藏所有商品信息
+        var productInfos = document.getElementsByClassName("product-info");
+        for (var i = 0; i < productInfos.length; i++) {
+          productInfos[i].classList.remove("show");
+        }
+        
+        // 显示指定商品信息
+        var productInfo = document.getElementById(categoryId);
+        productInfo.classList.add("show");
+      }
+    </script>
+  </body>
+</html>

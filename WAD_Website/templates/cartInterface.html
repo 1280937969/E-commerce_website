@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/cartInterface.css">
+    <title>Shopping Cart Interface</title>
+    <header>
+        <button onclick="window.location.href='http://127.0.0.1:5000/' ">
+            <img src="/static/picture/homepageButton.jpg" alt="Home" />
+        </button>
+        {% if user %}
+            <div style="overflow: auto;">
+                <span>Hello ! {{ user.name }}</span>
+                <a href="http://127.0.0.1:5000/logout">Log out</a>
+                <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">Personal Center</a>
+                <a href="{{ url_for('message', id=user.user_id) }}" style="float: right;">message center</a>
+            </div>
+        {% else %}
+            <a href="http://127.0.0.1:5000/login">Log in</a>
+            <a href="http://127.0.0.1:5000/register">register</a>
+        {% endif %}
+    </header>
+</head>
+<body>
+    <div class="container">
+        <h1>Shopping Cart</h1>
+        <p>You can purchase items here</p>
+        <div class="content">
+            <div class="items">
+
+                {% for item in items %}
+                <div class="item">
+                    <img src="{{ item.photo }}" alt="Product photo">
+                    <div class="item-info">
+                        <h3>{{ item.item_name }}</h3>
+                        <p class="price">original price: ¥<span>{{ item.price }}</span></p>
+                        <p class="price">discount: <span>{{ item.discount_limit }}</span></p>
+                        <p class="price">current price: ¥<span>{{ item.price*item.discount_limit }}</span></p>
+                        <div class="quantity-wrapper">
+                            <button class="minusBtn">-</button>
+                            <input type="number" class="quantity" value="1" min="0">
+                            <button class="plusBtn">+</button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="summary">
+                <p>Total price of goods: <span id="total">¥0</span></p>
+                <p>Save costs after discounts: <span id="savings">¥0</span></p>
+                <p>Amount to be paid: <span id="totalPayment">¥0</span></p>
+                <button id="payBtn">PAY BUTTON</button>
+            </div>
+        </div>
+    </div>
+    <script src="/static/js/jquery-3.6.4.js"></script>
+<script>
+$(document).ready(function(){
+    function updateSummary() {
+        let totalPrice = 0;
+        let totalPayment = 0;
+        let savingsAmount = 0;
+
+        $('.quantity').each(function(index, input) {
+            const itemInfoDiv = $(input).parent().parent();
+            const originalPrice = parseFloat(itemInfoDiv.find('.price:nth-child(2) span').text());
+            const discount = parseFloat(itemInfoDiv.find('.price:nth-child(3) span').text());
+
+            const quantity = parseInt($(input).val());
+            totalPrice += originalPrice * quantity;
+            totalPayment += originalPrice * discount * quantity;
+        });
+
+        savingsAmount = totalPrice - totalPayment;
+
+        $('#total').text(`¥${totalPrice.toFixed(2)}`);
+        $('#savings').text(`¥${savingsAmount.toFixed(2)}`);
+        $('#totalPayment').text(`¥${totalPayment.toFixed(2)}`);
+    }
+
+    $('.minusBtn').click(function() {
+        const input = $(this).siblings('.quantity');
+        if (parseInt(input.val()) > 0) {
+            input.val(parseInt(input.val()) - 1);
+            updateSummary();
+        }
+    });
+
+    $('.plusBtn').click(function() {
+        const input = $(this).siblings('.quantity');
+        input.val(parseInt(input.val()) + 1);
+        updateSummary();
+    });
+
+    $('.quantity').change(updateSummary);
+
+    $('#payBtn').click(function() {
+    const totalPayment = parseFloat($('#totalPayment').text().substring(1));
+    let totalItems = 0;
+    $('.quantity').each(function(index, input) {
+        totalItems += parseInt($(input).val());
+    });
+
+    // create data object
+    const data = {
+        total_price: totalPayment,
+        quantity: totalItems
+    };
+
+    // send post request
+    $.ajax({
+        url: `/cart/update/{{ g.user.user_id }}`, // replace 1 with actual cart_id if dynamic
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        success: function(response) {
+            console.log(response);
+            location.href = "http://127.0.0.1:5000/payment/{{ g.user.user_id }}";
+            alert(`Are you sure you want to purchase?\r
+             The total amount of money needed to be spent: ¥${totalPayment.toFixed(2)}.\r
+            The total number of items present in the shopping cart: ${totalItems}`);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+    updateSummary();
+});
+</script>
+
+
+</body>
+</html>
+

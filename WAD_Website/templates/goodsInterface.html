@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>commodity information</title>
+<link rel="stylesheet" href="../static/css/goodsInterface.css">
+    <header>
+        <button onclick="window.location.href='http://127.0.0.1:5000/' ">
+            <img src="/static/picture/homepageButton.jpg" alt="Home" />
+        </button>
+        {% if user %}
+            <div style="overflow: auto;">
+                <span>Hello ! {{ user.name }}</span>
+                <a href="http://127.0.0.1:5000/logout">Log out</a>
+                <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">Personal Center</a>
+            </div>
+        {% else %}
+            <a href="http://127.0.0.1:5000/login">Log in</a>
+            <a href="http://127.0.0.1:5000/register">Register</a>
+        {% endif %}
+    </header>
+</head>
+<body>
+    <hr>
+	<div class="product-container">
+    <div class="product-image">
+        <img src="{{ item.photo }}" alt="product">
+    </div>
+    <div class="product-details">
+        <h1>{{ item.item_name }}</h1>
+        <h3>{{ item.item_details }}</h3>
+        <p><b>Original price:</b> {{ item.price }}</p>
+    {% if item.discount_limit!=1 %}
+        <p><b>Discount:</b> {{ item.discount_limit*100 }}%</p>
+        <p><b>Price after discount:</b> {{ item.price*item.discount_limit }}</p>
+        <p><b>Discount deadline:</b> {{ item.duration }}</p>
+    {% endif %}
+        <p><b>Like:</b> {{ item.liked_quantity }}</p>
+        <p><b>Dislike:</b> {{ item.disliked_quantity }}</p>
+    {% if user %}
+    {% set interaction = item.interactions|selectattr("user_id", "equalto", user.user_id)|list|first %}
+        <div style="display: flex;">
+    {% if not interaction or not interaction.liked %}
+        <form action="{{ url_for('like_item', id=item.item_id) }}" method="post">
+            <input type="submit" value="like" />
+        </form>
+    {% endif %}
+    {% if not interaction or not interaction.disliked %}
+        <form action="{{ url_for('dislike_item', id=item.item_id) }}" method="post">
+            <input type="submit" value="dislike" />
+        </form>
+    {% endif %}
+        </div>
+{% else %}
+{% endif %}
+
+        <p>Seven day no reason return.</p>
+        <p>Ship within three days.</p>
+        <p>Authentic guarantee</p>
+        <p>EMS Postal Express</p>
+    {% if user %}
+    <div style="display: flex; justify-content: space-between; width: 200px;">
+        <form action="{{ url_for('goodsInterface', id=item.item_id) }}" method="post">
+            <input type="submit" value="add to cart" />
+        </form>
+
+        <a href="{{ url_for('cart', id=user.user_id) }}" class="gray">Enter the shopping cart</a>
+    </div>
+{% else %}
+    <form action="http://127.0.0.1:5000/login" method="post">
+        <input type="submit" value="add to cart" />
+    </form>
+{% endif %}
+    </div>
+</div>
+
+    <hr>
+    <h1>Comment area</h1>
+
+    {% if item.comments %}
+    {% for comment in item.comments %}
+        {% if comment.comment_details %}
+            <p>Name:{{ comment.name }}</p>
+            <p>Time:{{ comment.comment_time }}</p>
+            <p>{{ comment.comment_details }}</p>
+            <p>Mark:{{ comment.mark }}</p>
+        {% endif %}
+        <hr>
+    {% endfor %}
+{% endif %}
+    <div id="comments">
+      <h2>Comment area</h2>
+      <ul id="comment-list"></ul>
+      <form id="comment-form" action="" method="POST">
+        <textarea id="comment-text" name="comment" placeholder="Please enter your comment..."></textarea>
+          <textarea id="comment-text" name="mark" placeholder="Please enter your rating (1-10)..."></textarea>
+        <input type="submit" value="Send comments">
+          {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+      </form>
+    </div>
+
+</body>
+
+
+</html>
+
+
+

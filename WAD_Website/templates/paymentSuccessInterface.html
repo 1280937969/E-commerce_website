@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Success</title>
+    <link rel="stylesheet" href="../static/css/paymentSuccessed.css">
+</head>
+<body>
+    <h1>THANK YOU!</h1>
+    <p>You have completed the payment.</p>
+    <div class="boxed">
+        <p>Thank you for completing the payment。</p>
+        <div class="center">
+            <button onclick="window.location.href='http://127.0.0.1:5000/'">Return to homepage</button>
+        </div>
+    </div>
+    <h1>ORDER</h1>
+    <div class="boxed">
+        <h3><strong>Items you buy:</strong></h3>
+        {% for item in items %}
+            <img src="{{ item.photo }}" alt="Product photo">
+            <p> item name: {{ item.item_name }}</p>
+        {% endfor %}
+        <h3><strong>Total amount paid:</strong></h3>
+        <p> {{ cart.total_price }}</p>
+        <h3><strong>Shipping Cost:</strong></h3>
+        <p> {{ cart.quantity*5 }}</p>
+        <h3><strong>Actual Payment:</strong></h3>
+        <p> {{ cart.total_price + cart.quantity*5}}</p>
+        <h3><strong>Transaction Time:</strong></h3>
+        <p> {{ time }}</p>
+    </div>
+</body>
+</html>

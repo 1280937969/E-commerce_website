@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link rel="stylesheet" href="../static/css/message.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message center for e-commerce websites</title>
+    <header>
+        <button onclick="window.location.href='http://127.0.0.1:5000/' ">
+            <img src="/static/picture/homepageButton.jpg" alt="Home" />
+        </button>
+        <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">Personal Center</a>
+    </header>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>The information you received and sent</h1>
+        <div class="container">
+            <div class="received">
+                <h2 class="section-title">Received messages</h2>
+                {% for message in message %}
+                    {% if message.recipient == user.user_id %}
+                        <p>Time:{{ message.time }}:</p>
+                        <p>{{ message.content }}</p>
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+                <!-- 更多收到的消息可以在这里添加 -->
+            </div>
+            <div class="sent-container">
+                <h2 class="section-title">Sent messages</h2>
+                {% for message in sent_messages %}
+                    {% if message.user_id == user.user_id %}
+                        <p>Time:{{ message.time }}:</p>
+                        <p>{{ message.content }}</p>
+                        <hr>
+                    {% endif %}
+                {% endfor %}
+                    <!-- 更多发送的消息可以在这里添加 -->
+                </div>
+                <form action="#" method="POST">
+                <textarea name="recipient_id" placeholder="Enter recipient ID"></textarea>
+                    <textarea name="content" placeholder="Enter message content"></textarea>
+                    <button type="submit">Send message</button>
+                    {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+
+
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="../static/css/homepage.css">
+	<title>Product Release</title>
+	<link rel="stylesheet" type="text/css" href="../static/css/publicInterface.css">
+    <header>
+        <button onclick="window.location.href='http://127.0.0.1:5000/' ">
+            <img src="/static/picture/homepageButton.jpg" alt="Home" />
+        </button>
+        {% if user %}
+            <div style="overflow: auto;">
+                <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">Personal Center</a>
+            </div>
+        {% endif %}
+    </header>
+</head>
+<body>
+	<div class="container">
+		<div class="left">
+			<h1>Publish product</h1>
+            <hr>
+			<form method="post">
+				<label for="name">Product name:</label>
+				<input type="text" id="name" name="name" placeholder="Please enter the product name">
+
+				<label for="category">Category:</label>
+				<select id="category" name="category">
+					<option value="Menswear">Menswear</option>
+					<option value="Women's clothing">Women's clothing</option>
+					<option value="Toy">Toy</option>
+                    <option value="Snack">Snack</option>
+                    <option value="Digital product">Digital product</option>
+                    <option value="Cosmetics">Cosmetics</option>
+				</select>
+				<label for="location">Country of origin:</label>
+				<input type="text" id="location" name="location" placeholder="Please enter the country of origin">
+				<label for="description">Product Details:</label>
+				<textarea id="description" name="description" placeholder="Please enter product details"></textarea>
+            <label for="photo">Photo:</label>
+				<textarea id="photo" name="photo" placeholder="Please enter a picture name"></textarea>
+
+				<label for="price">Price:</label>
+                <input type="number" id="price" name="price" placeholder="Please enter the price"><br>
+                <label for="discount">Discount:</label>
+<input type="number" id="discount" name="discount" placeholder="Please enter a discount" min="0" max="1" step="0.01">
+                <label for="discounted-price">Discounted price:</label>
+                <p id="discounted-price"></p>
+            <label for="duration">Discount deadline:</label>
+				<textarea id="duration" name="duration" placeholder="Please enter the deadline for product discount"></textarea>
+				<input type="submit" value="Submit">
+                {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+			</form>
+		</div>
+            <hr>
+		</div>
+	</div>
+    <script src="../static/js/jquery-3.6.4.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#price, #discount').on('input', function() {
+            var price = $('#price').val();
+            var discount = $('#discount').val();
+            if(price && discount) {
+                var discounted_price = price * discount;
+                $('#discounted-price').text(discounted_price);
+            }
+        });
+    });
+</script>
+</body>
+</html>

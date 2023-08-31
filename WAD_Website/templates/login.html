@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <b><h1 align="center">Log in</h1></b>
+    <div style="text-align: center;">
+        <form class="form" method="POST">
+            <b><p align="center">Log in using email and password</p></b>
+            <a href="http://127.0.0.1:5000/" class="homepage-button"></a>
+            <label>E-mail:</label>
+            <input type="text" name="username"><br>
+            <label>password:</label>
+            <input type="password" name="password"><br>
+            <br>
+            <input type="submit" value="log in" style="color: red;"><br>
+            {% for message in get_flashed_messages() %}
+                {{ message }}
+            {% endfor %}
+        </form>
+    </div>
+</body>
+</html>

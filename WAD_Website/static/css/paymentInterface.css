@@ -1,0 +1,77 @@
+body {
+            font-family: Arial, sans-serif;
+        }
+.wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .payment-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            width: 80%;
+            margin-bottom: 50px;
+        }
+
+        .personal-info,
+        .summary {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .payment-methods {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .payment-methods label {
+            cursor: pointer;
+        }
+
+        .payment-methods input[type="radio"] {
+            display: none;
+        }
+
+        .payment-methods input[type="radio"]:checked + label {
+            font-weight: bold;
+        }
+
+        button {
+            font-size: 1.2em;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+        header {
+            background-color: gray;
+            padding: 10px;
+            overflow: auto;
+        }
+        header a {
+            float: right;
+            text-decoration: underline;
+            color: white;
+            margin-left: 10px;
+        }
+        header button {
+            float: left;
+            background: white;
+            border: none;
+            padding: 10px 20px;
+        }
+        button img {
+    width: 20px;
+    height: 20px;
+}
+        button {
+    font-size: 18px;
+    padding: 8px 16px;
+    margin-top: 0rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+}

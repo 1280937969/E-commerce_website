@@ -1,0 +1,85 @@
+      /* 图片容器 */
+      .category {
+        display: inline-block;
+        margin: 20px;
+        cursor: pointer;
+      }
+
+      /* 图片悬停时的样式 */
+      .category:hover img {
+        opacity: 0.7;
+      }
+
+      /* 图片 */
+      .category img {
+        width: 200px;
+        height: 200px;
+        border-radius: 0%;
+        transition: opacity 0.3s ease-in-out;
+      }
+
+      /* 商品信息容器 */
+      .product-info {
+        display: none;
+        margin: 20px;
+        padding: 20px;
+        background-color: #f0f0f0;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px #ddd;
+      }
+
+      /* 显示商品信息 */
+      .product-info.show {
+        display: block;
+      }
+
+      .product {
+			display: inline-block;
+			margin: 10px;
+			text-align: center;
+			border: 1px solid #ccc;
+			padding: 10px;
+		}
+		.product img {
+			max-width: 100%;
+			height: auto;
+		}
+
+        img {
+			width: 200px;
+			height: 200px;
+			transition: all 0.3s ease-in-out; /* 添加过渡效果 */
+		}
+		img:hover {
+			transform: scale(1.1); /* 鼠标悬停时放大1.2倍 */
+		}
+        header {
+    background-color: gray;
+    padding: 10px;
+    overflow: auto;
+        }
+header a {
+    float: right;
+    text-decoration: underline;
+    color: white;
+    margin-left: 10px;
+        }
+header button {
+    float: left;
+    background: white;
+    border: none;
+    padding: 10px 20px;
+        }
+button img {
+    width: 20px;
+    height: 20px;
+}
+button {
+    font-size: 18px;
+    padding: 8px 16px;
+    margin-top: 0rem;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+}

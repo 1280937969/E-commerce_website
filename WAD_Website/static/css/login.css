@@ -1,0 +1,43 @@
+.form {
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    width: 400px;
+    max-width: 100%;
+    padding: 0 35px 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -160px 0 0 -240px;
+    text-align: left;
+}
+
+.form label {
+    display: inline-block;
+    width: 100px;
+    margin-right: 10px;
+    text-align: right;
+}
+
+.form input {
+    display: inline-block;
+    width: 200px;
+}
+
+.form input[type="submit"] {
+    display: block;
+    margin: 0 auto;
+}
+
+.homepage-button {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    border-radius: 4px;
+    text-decoration: none;
+    background: url("/static/picture/homepageButton.jpg") no-repeat;
+    background-size: contain;
+}

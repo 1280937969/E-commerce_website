@@ -1,0 +1,22 @@
+h1,p {
+            text-align: center;
+        }
+        .boxed {
+            border: 1px solid black;
+            padding: 20px;
+            margin: 20px auto; /* 添加 auto 使盒子水平居中 */
+            width: 33.3%; /* 设置宽度为页面宽度的三分之一 */
+        }
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        button {
+            background-color: rgb(73, 73, 74);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+        }

@@ -1,0 +1,93 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+.container {
+	display: flex;
+}
+
+.left {
+	flex: 2;
+	padding: 20px;
+}
+
+.right {
+	flex: 1;
+	padding: 20px;
+}
+
+h2 {
+	margin-bottom: 20px;
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+label {
+	margin-top: 10px;
+	margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+
+select {
+	padding: 10px;
+	margin-bottom: 10px
+}
+input[type="radio"] {
+	margin-right: 10px;
+}
+
+.image-upload {
+	margin-top: 20px;
+	position: relative;
+}
+
+.image-upload img {
+	width: 200px;
+	height: 200px;
+	object-fit: cover;
+	cursor: pointer;
+    margin-bottom: 30px;
+}
+
+.image-upload input[type="file"] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	cursor: pointer;
+}
+
+.discount {
+	margin-top: 20px;
+}
+
+.discount label {
+	margin-right: 10px;
+}
+
+.discount input[type="number"] {
+	padding: 10px;
+	margin-right: 10px;
+	width: 120px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+button img {
+    width: 20px;
+    height: 20px;
+}

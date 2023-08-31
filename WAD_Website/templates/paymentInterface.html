@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <link rel="stylesheet" href="../static/css/paymentInterface.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment interface</title>
+
+    <header>
+        <button onclick="window.location.href='http://127.0.0.1:5000/' ">
+            <img src="/static/picture/homepageButton.jpg" alt="Home" />
+        </button>
+        <a href="{{ url_for('personInterface', id=user.user_id) }}" style="float: right;">个人中心</a>
+    </header>
+</head>
+
+<body>
+    <div class="wrapper">
+        <h1>Payment</h1>
+        <div class="payment-container">
+            <div class="personal-info">
+                <h2>Personal Information</h2>
+                <p>Name of purchaser: <span>{{ g.user.name }}</span></p>
+                <p>Address: <span>{{ g.user.address }}</span></p>
+                <p>E-mail: <span>{{ g.user.email }}</span></p>
+                <p>Phone number: <span>{{ g.user.phone_number }}</span></p>
+            </div>
+            <div class="summary">
+                <h2>Summary</h2>
+                <p>Total price of items in the shopping cart: <span >{{ cart.total_price }}</span></p>
+                <p>Product quantity: <span>{{ cart.quantity }}</span></p>
+                <p>Freight: <span>{{ 5*cart.quantity }}</span></p>
+                <p>Total price: <span>{{ cart.total_price + 5*cart.quantity }}</span></p>
+            </div>
+        </div>
+        <hr />
+        <div class="payment-methods">
+            <h2>Payment method</h2>
+            <input type="radio" name="payment" id="wechat">
+            <label for="wechat">WeChat Pay</label>
+            <input type="radio" name="payment" id="alipay">
+            <label for="alipay">Alipay Pay</label>
+            <button type="button" id="payNowBtn">PAY NOW</button>
+        </div>
+    </div>
+<script src="/static/js/jquery-3.6.4.js"></script>
+<script>
+$(document).ready(function() {
+    $('#payNowBtn').click(function() {
+        if ($('#wechat').is(':checked')) {
+            window.location.href = 'http://127.0.0.1:5000/wechatPayment';
+        } else if ($('#alipay').is(':checked')) {
+            window.location.href = 'http://127.0.0.1:5000/alipayPayment';
+        } else {
+            alert('Please select the payment method first');
+        }
+    });
+});
+</script>
+</body>
+
+</html>
